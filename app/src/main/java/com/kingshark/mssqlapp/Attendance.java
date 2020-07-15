@@ -1,19 +1,22 @@
 package com.kingshark.mssqlapp;
 
+import java.sql.Timestamp;
+
 public class Attendance {
     String name,jobGroup,attendance;
+    Timestamp date;
 
 
     public Attendance() {
     }
 
-    public Attendance(String name, String jobGroup, String attendance) {
+
+    public Attendance(String name, String jobGroup, String attendance, Timestamp date) {
         this.name = name;
         this.jobGroup = jobGroup;
-       this.attendance = attendance;
+        this.attendance = attendance;
+        this.date = date;
     }
-
-
 
     public String getName() {
         return name;
@@ -40,5 +43,11 @@ public class Attendance {
         this.attendance = attendance;
     }
 
+    public Timestamp getDate() {
+        return date;
+    }
 
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
 }

@@ -22,19 +22,22 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView attendance;
     FloatingActionButton fab;
 
-
-
+    ViewHolder viewHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,33 @@ public class MainActivity extends AppCompatActivity {
                 showAttendanceDialog();
             }
         });
+
+        loadAttendanceList();
+    }
+
+    private void loadAttendanceList() {
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection connection = ConnectionClass.Conn();
+
+        List<Attendance> attendanceList = new ArrayList<>();
+
+        try {
+            String querystmt = "SELECT * FROM test_table";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(querystmt);
+            while (rs.next()){
+                attendanceList.add(new Attendance(rs.getString("EmployeeName"),
+                        rs.getString("JobGroup"),
+                        rs.getString("Attendance"),
+                        rs.getTimestamp("Date")));
+
+                viewHolder = new ViewHolder(this,attendanceList);
+                attendance.setAdapter(viewHolder);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showAttendanceDialog() {
@@ -94,16 +124,15 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
 
-                    String query = "INSERT into test_table (EmployeeName,JobGroup,Attendance) values ('name','job','finalCheck')";
+                    String query = String.format("INSERT into test_table (EmployeeName,JobGroup,Attendance) values('%s','%s','%s');",name,job,finalCheck);
                     PreparedStatement statement = connection.prepareStatement(query);
                     statement.executeUpdate();
                     statement.close();
 
+                    finish();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
-                finish();
 
             }
 

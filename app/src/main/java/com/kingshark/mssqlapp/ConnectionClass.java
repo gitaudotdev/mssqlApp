@@ -13,6 +13,7 @@ public class ConnectionClass {
     public static Connection Conn(){
         String username = "test";
         String password ="root";
+        //String port ="1433";
         String _class = "net.sourceforge.jtds.jdbc.Driver";
         String ip = "192.168.0.105";
         String db = "dbTest";
