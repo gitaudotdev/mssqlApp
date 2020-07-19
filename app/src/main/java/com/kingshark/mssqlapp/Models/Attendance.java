@@ -1,4 +1,4 @@
-package com.kingshark.mssqlapp;
+package com.kingshark.mssqlapp.Models;
 
 import java.sql.Timestamp;
 

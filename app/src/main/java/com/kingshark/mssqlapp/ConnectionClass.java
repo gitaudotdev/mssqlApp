@@ -16,7 +16,7 @@ public class ConnectionClass {
         //String port ="1433";
         String _class = "net.sourceforge.jtds.jdbc.Driver";
         String ip = "192.168.0.105";
-        String db = "dbTest";
+        String db = "site";
         String url = "jdbc:jtds:sqlserver://"+ip+"/"+db;
 
         Connection connection = null;

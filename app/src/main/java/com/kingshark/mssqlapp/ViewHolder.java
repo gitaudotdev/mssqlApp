@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.kingshark.mssqlapp.Models.Attendance;
+
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.List;

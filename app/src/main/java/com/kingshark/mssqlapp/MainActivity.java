@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.kingshark.mssqlapp.Models.Attendance;
 
 import java.sql.Connection;
 
@@ -63,28 +64,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadAttendanceList() {
-        ConnectionClass connectionClass = new ConnectionClass();
-        Connection connection = ConnectionClass.Conn();
-
-        List<Attendance> attendanceList = new ArrayList<>();
-
-        try {
-            String querystmt = "SELECT * FROM test_table";
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(querystmt);
-            while (rs.next()){
-                attendanceList.add(new Attendance(rs.getString("EmployeeName"),
-                        rs.getString("JobGroup"),
-                        rs.getString("Attendance"),
-                        rs.getTimestamp("Date")));
-
-                viewHolder = new ViewHolder(this,attendanceList);
-                attendance.setAdapter(viewHolder);
-
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+       List<Attendance> attendanceList = new Database().getAttendances();
+        viewHolder = new ViewHolder(this,attendanceList);
+        attendance.setAdapter(viewHolder);
     }
 
     private void showAttendanceDialog() {
